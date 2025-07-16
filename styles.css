@@ -5,6 +5,11 @@ html, body {
     overflow: hidden;
 }
 
+.border-thick {
+  border-width: 20px !important;
+  border-color: #e44444 !important;
+}
+
 .container-fluid {
     display: flex;
     flex-direction: column;
@@ -24,6 +29,7 @@ html, body {
     display: flex;
     flex-direction: column;
     flex-grow: 1; 
+    border-color: #ec7e89 !important;
 }
 
 .list-container {
@@ -40,24 +46,25 @@ html, body {
 /* Chrome, Edge, Safari */
 .scrollable-list::-webkit-scrollbar,
 .overflow-auto::-webkit-scrollbar {
-  width: 8px;
-  background: #f8d7da;
+  width: 16px;
+  background: #b43434;
 }
 
 .scrollable-list::-webkit-scrollbar-thumb,
 .overflow-auto::-webkit-scrollbar-thumb {
-  background: #dc3545;
+  background: #e84444;
   border-radius: 4px;
 }
 
 .list-group-item-action {
   cursor: pointer !important;
+  background-color: #4c0404;
+  border-color: rgb(155, 13, 13);
   transition: background-color 0.2s ease !important;
 }
 
 .list-group-item-action:hover {
-  background-color: #e0f7fa !important;
-  color: #004d40 !important;
+  background-color: #c45454 !important;
 }
 
 .list-group-item-action:active {
@@ -73,3 +80,15 @@ html, body {
     padding-top: 6rem !important;
 }
 
+.list-group-item.active-pokemon {
+  background-color: #a13636;
+}
+
+.bg-decorative {
+  background: linear-gradient(to bottom, #fdd, #fff);
+}
+
+.list-container,
+#pokemon-list {
+  background-color: transparent;
+}

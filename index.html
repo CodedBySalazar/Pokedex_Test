@@ -10,15 +10,15 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="border border-danger border-5 d-flex flex-column">
+<body class="border d-flex flex-column rounded-inner-border border-thick">
 
     <div class="container-fluid flex-grow-1">
 
         <div class="row h-100">
 
-            <div class="col-4 border-end border-5 border-danger g-0 h-100">
+            <div class="col-4 border-end g-0 h-100 border-thick bg-decorative">
 
-                <div class="border border-1 border-light h-100 ">
+                <div class="border border-2 border-light h-100">
 
                     <div class="overflow-auto list-container">
                         <ul class="list-group" id="pokemon-list">
@@ -31,7 +31,7 @@
             </div>
 
 
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-8 border border-2 border-light">
 
                 <div class="row">
                     <div class="col-12  col-md-12 text-end">
@@ -75,6 +75,7 @@
                             <ul class="list-unstyled d-flex flex-column gap-3 gap-md-4">
                                 <li><strong>Weight:</strong> <span id="pokemonWeight">34.2 Kg</span></li>
                                 <li><strong>Height:</strong> <span id="pokemonHeight">2'04"</span></li>
+                                <li><strong>Species:</strong> <span id="pokemonSpecie">Seed</span></li>
                                 <li><strong>Egg Groups:</strong> <span id="eggGroups">Monster and Grass</span></li>
                                 <li><strong>Abilities:</strong> <span id="abilities">Overgrow, Chlorophyll</span></li>
                             </ul>
@@ -89,7 +90,36 @@
 
 
                 <div class="row" id="evolutionChain">
-                    <div class="col-12"></div>
+                    <div class="col-12">
+
+                        <h4 class="text-center mb-4 mt-4">Evolution Chart</h4>
+                        <div class="d-flex flex-nowrap justify-content-center align-items-center overflow-auto gap-3" id="evolutionChainContainer">
+
+                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center ">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                                alt="Evolution Image" class="img-fluid" >
+                                <span class="mt-2 fw-bold text-center">Bulbasaur</span>
+                            </div>
+
+                                <i class="bi bi-arrow-right text-danger fs-1 mx-5"></i>
+                            
+                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
+                                alt="Evolution Image" class="img-fluid" >
+                                <span class="mt-2 fw-bold text-center">Ivisaur</span>
+                            </div>
+
+                                <i class="bi bi-arrow-right text-danger fs-1 mx-5"></i> 
+
+                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png"
+                                alt="Evolution Image" class="img-fluid ">
+                                <span class="mt-2 fw-bold text-center">Venasaur</span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
                 </div>
 
             </div>
