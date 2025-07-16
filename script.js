@@ -40,6 +40,8 @@ function orderPokemons() {
 
 async function fetchPokemonData(pokemonName) {
   try {
+    let evolution_names = [];
+
     const basicData = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
     );
@@ -49,6 +51,8 @@ async function fetchPokemonData(pokemonName) {
       `https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`
     );
     const specie = await special_data.json();
+
+    evolution_names = await getEvolutionChain(specie);
 
     pokemonData.push({
       id: pokemon.id,
@@ -60,6 +64,7 @@ async function fetchPokemonData(pokemonName) {
       egg_groups: specie.egg_groups.map((g) => g.name),
       principal_image: pokemon.sprites.other["official-artwork"].front_default,
       secondary_image: pokemon.sprites.front_default,
+      evolution_names: evolution_names,
     });
 
   } catch (error) {
@@ -67,10 +72,41 @@ async function fetchPokemonData(pokemonName) {
   }
 }
 
-function displayPokemonData() {
-  const pokemonList = document.getElementById("pokemon-list");
+async function getEvolutionChain(specie) {
+  let evolution_names = [];
 
-  pokemonData.forEach((pokemon) => {
+  if (specie.evolution_chain && specie.evolution_chain.url) {
+    try {
+      const evolutionChainResponse = await fetch(specie.evolution_chain.url);
+      const evolutionChain = await evolutionChainResponse.json();
+      evolution_names = extractEvolutionNames(evolutionChain.chain);
+    } catch (e) {
+      console.error(`Error fetching evolution chain for ${pokemonName}:`, e.message);
+    }
+  }
+
+  return evolution_names;
+}
+
+function extractEvolutionNames(chain) {
+  const names = [];
+
+  function traverse(node) {
+    if (!node) return;
+    names.push(node.species.name);
+    if (node.evolves_to && node.evolves_to.length > 0) {
+      node.evolves_to.forEach((child) => traverse(child));
+    }
+  }
+  traverse(chain);
+  return names;
+}
+
+function displayPokemonData(filteredPokemons = pokemonData) {
+  const pokemonList = document.getElementById("pokemon-list");
+  pokemonList.innerHTML = "";
+
+  filteredPokemons.forEach((pokemon) => {
     const listItem = document.createElement("li");
     listItem.className =
       "list-group-item list-group-item-action d-flex justify-content-between align-items-center";
@@ -115,20 +151,49 @@ function showActualPokemon() {
   const $abilities = $("#abilities");
 
   $imageSrc.attr("src", actualPokemonData.principal_image);
-  $name.text(actualPokemonData.name.charAt(0).toUpperCase() + actualPokemonData.name.slice(1));
-  
+  $name.text(convertFirstLetterUpperCase(actualPokemonData.name));
+
   $typesContainer.empty();
   actualPokemonData.types.forEach((type) => {
-    $typesContainer.append(`<span class="badge-type text-dark py-2 px-5 rounded mx-3">${type}</span>`);
+    $typesContainer.append(
+      `<span class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">${convertFirstLetterUpperCase(
+        type
+      )}</span>`
+    );
   });
 
   $weight.text(`${actualPokemonData.weight / 10} kg`);
   $height.text(`${actualPokemonData.height / 10} m`);
 
   $eggGroups.empty();
-  $eggGroups.text(actualPokemonData.egg_groups.join(" and "));
+  $eggGroups.text(
+    actualPokemonData.egg_groups
+      .map((group) => convertFirstLetterUpperCase(group))
+      .join(" and ")
+  );
 
   $abilities.empty();
-  $abilities.text(actualPokemonData.abilities.join(", "));
-  
+  $abilities.text(
+    actualPokemonData.abilities
+      .map((ability) => convertFirstLetterUpperCase(ability))
+      .join(", ")
+  );
 }
+
+function convertFirstLetterUpperCase(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  const searchPokemon = e.target.value.toLowerCase();
+
+  const filteredPokemons = pokemonData.filter((pokemon) =>
+    pokemon.name.toLowerCase().includes(searchPokemon)
+  );
+
+  displayPokemonData(filteredPokemons);
+
+  if (searchPokemon === "") {
+    displayPokemonData(pokemonData);
+  }
+});

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Kanto</title>
     <link rel="stylesheet" href="libs/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/bootstrap-5.3.7-dist/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -29,50 +30,68 @@
 
             </div>
 
-            <div class="col-8">
 
-                <div class="row" id="pokemonDetails">
-                    <div class="col-6" id="principal">
-                        <div class="p-5">
+            <div class="col-12 col-md-8">
+
+                <div class="row">
+                    <div class="col-12  col-md-12 text-end">
+                        <div class="d-inline-block pt-2 search-wrapper">
+                            
+
+                            <input type="text" id="searchInput" class="form-control"
+                                placeholder="Enter Pokémon name..." />
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row gy-4" id="pokemonDetails">
+                    <div class="col-12 col-md-6" id="principal">
+                        <div class="p-3 p-md-5">
                             <div class="align-items-center d-flex justify-content-center mb-3">
-                                <img id="pokemonImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-                                    alt="Pokemon Image" class="img-fluid w-50">
+                                <img id="pokemonImage"
+                                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                                    alt="Pokemon Image" class="img-fluid w-25 w-md-25">
                             </div>
                             <div class="mb-3">
                                 <h2 id="pokemonName" class="text-center">Bulbasaur</h2>
                             </div>
-                            <div class="d-flex justify-content-center align-items-center" id="pokemonTypes">
+                            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2"
+                                id="pokemonTypes">
                                 <!-- Pokémon types will be displayed here -->
-                                <span class="badge-type text-dark py-2 px-5 rounded mx-3">Type 1</span>
-                                <span class="badge-type text-dark py-2 px-5 rounded mx-3">Type 1</span>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="col-6" id="adittionalData">
-                        <div class="p-5">
-                            <div class="text-start p-4">
-                                <h4 class="mb-5">Information</h4>
-                                <ul class="list-unstyled d-flex flex-column gap-4">
-                                    <li ><strong>Weight:</strong> <span id="pokemonWeight">34.2 Kg</span></li>
-                                    <li ><strong>Height:</strong> <span id="pokemonHeight">2'04"</span></li>
-                                    <li ><strong>Egg Groups:</strong> <span id="eggGroups">Monster and Grass</span></li>
-                                    <li ><strong>Abilities:</strong> <span id="abilities">Overgrow, Chlorophyll</span></li>
-                                </ul>
+                                <span
+                                    class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">Type
+                                    1</span>
+                                <span
+                                    class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">Type
+                                    1</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center">
-                        <hr class="custom-hr">
-                    </div>
-
-                    <div class="row" id="evolutionChain">
-                        <div class="col-12"></div>
+                    <div class="col-12 col-md-6" id="adittionalData">
+                        <div class="text-start pt-6 pt-md-6">
+                            <h4 class="mb-3 mb-md-4">Information</h4>
+                            <ul class="list-unstyled d-flex flex-column gap-3 gap-md-4">
+                                <li><strong>Weight:</strong> <span id="pokemonWeight">34.2 Kg</span></li>
+                                <li><strong>Height:</strong> <span id="pokemonHeight">2'04"</span></li>
+                                <li><strong>Egg Groups:</strong> <span id="eggGroups">Monster and Grass</span></li>
+                                <li><strong>Abilities:</strong> <span id="abilities">Overgrow, Chlorophyll</span></li>
+                            </ul>
+                        </div>
                     </div>
 
                 </div>
+
+                <div class="d-flex justify-content-center">
+                    <hr class="custom-hr">
+                </div>
+
+
+                <div class="row" id="evolutionChain">
+                    <div class="col-12"></div>
+                </div>
+
             </div>
 
         </div>
