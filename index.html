@@ -1,26 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex Kanto</title>
-    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="libs/bootstrap-5.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body class="border border-danger border-5">
-    
-<div class="container">
 
-        <div class="row">
+<body class="border border-danger border-5 d-flex flex-column">
 
-            <div class="col-4"></div>
-            <div class="col-8"></div>
+    <div class="container-fluid flex-grow-1">
+
+        <div class="row h-100">
+
+            <div class="col-4 border-end border-5 border-danger g-0 h-100">
+
+                <div class="border border-1 border-light h-100 ">
+
+                    <div class="overflow-auto list-container">
+                        <ul class="list-group" id="pokemon-list">
+                            <!-- Pokémon list will be displayed here -->
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-8">
+
+                <div class="row" id="pokemonDetails">
+                    <div class="col-6" id="principal">
+                        <div class="p-5">
+                            <div class="align-items-center d-flex justify-content-center mb-3">
+                                <img id="pokemonImage" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
+                                    alt="Pokemon Image" class="img-fluid w-50">
+                            </div>
+                            <div class="mb-3">
+                                <h2 id="pokemonName" class="text-center">Bulbasaur</h2>
+                            </div>
+                            <div class="d-flex justify-content-center align-items-center" id="pokemonTypes">
+                                <!-- Pokémon types will be displayed here -->
+                                <span class="badge-type text-dark py-2 px-5 rounded mx-3">Type 1</span>
+                                <span class="badge-type text-dark py-2 px-5 rounded mx-3">Type 1</span>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-6" id="adittionalData">
+                        <div class="p-5">
+                            <div class="text-start p-4">
+                                <h4 class="mb-5">Information</h4>
+                                <ul class="list-unstyled d-flex flex-column gap-4">
+                                    <li ><strong>Weight:</strong> <span id="pokemonWeight">34.2 Kg</span></li>
+                                    <li ><strong>Height:</strong> <span id="pokemonHeight">2'04"</span></li>
+                                    <li ><strong>Egg Groups:</strong> <span id="eggGroups">Monster and Grass</span></li>
+                                    <li ><strong>Abilities:</strong> <span id="abilities">Overgrow, Chlorophyll</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <hr class="custom-hr">
+                    </div>
+
+                    <div class="row" id="evolutionChain">
+                        <div class="col-12"></div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
-        
-   </div>
 
 
-    <script src="libs/bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
-    <script type="module" src="script.js"></script>
+        <script src="libs/bootstrap-5.3.7-dist/js/bootstrap.min.js"></script>
+        <script src="libs/jQuery/jquery-3.7.1.min.js"></script>
+        <script src="script.js"></script>
 </body>
+
 </html>
