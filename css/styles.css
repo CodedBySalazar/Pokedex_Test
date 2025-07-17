@@ -1,18 +1,22 @@
+/* Center the default message and Pokéball spin responsively */
+#defaultMessage {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
 }
 
 .container-fluid {
     display: flex;
     flex-direction: column;
     min-height: 100%; 
-}
-
-.row {
-    flex-grow: 1; 
 }
 
 .col-4 {
@@ -76,17 +80,17 @@ html, body {
 }
 
 .custom-hr {
-  width: 85% !important;              
-  border-top: 2px dashed #dc3545 !important; 
+  width: 100% !important;              
+  border-top: 2px solid #dc3545 !important; 
   opacity: 0.75 !important;
 }
 
 .badge-type {
-    background-color: #f0b6b6;
+    background-color: #f3dfdf;
 }
 
 .searchInput {
-  background: #9b3a3a;
+  background: #e07676;
   border: 1px solid #cf6f6f;
   color: white;
 }
@@ -96,7 +100,7 @@ html, body {
 }
 
 .searchInput:focus {
-  background-color: #793333;
+  background-color: #c95757;
   border-color: #dc3545;
   box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
   outline: none;

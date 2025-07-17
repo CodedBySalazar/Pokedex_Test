@@ -1,0 +1,9 @@
+.pokeball-spin {
+  animation: pokeball-spin 1.2s linear infinite;
+}
+
+@keyframes pokeball-spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../libs/bootstrap-5.3.7-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../libs/bootstrap-5.3.7-dist/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/pokeball-spin.css">
 </head>
 
 <body class="border d-flex flex-column rounded-inner-border border-thick">
@@ -34,9 +35,9 @@
             <div class="col-12 col-md-8 border border-2 border-light">
 
                 <div class="row">
-                    <div class="col-12  col-md-12 text-end">
+                    <div class="col-12 col-md-12 text-end">
                         <div class="d-inline-block pt-2 search-wrapper">
-                            
+
 
                             <div class="input-group">
                                 <span class="input-group-text bg-white searchInput">
@@ -44,87 +45,71 @@
                                 </span>
 
                                 <input type="text" class="form-control searchInput"
-                                placeholder="Enter Pokémon name..." />
+                                    placeholder="Enter Pokémon name..." />
                             </div>
 
                         </div>
                     </div>
                 </div>
 
-                <div class="row gy-4" id="pokemonDetails">
-                    <div class="col-12 col-md-6" id="principal">
-                        <div class="p-3 p-md-5">
-                            <div class="align-items-center d-flex justify-content-center mb-3">
-                                <img id="pokemonImage"
-                                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-                                    alt="Pokemon Image" class="img-fluid w-25 w-md-25">
-                            </div>
-                            <div class="mb-3">
-                                <h2 id="pokemonName" class="text-center">Bulbasaur</h2>
-                            </div>
-                            <div class="d-flex flex-wrap justify-content-center align-items-center gap-2"
-                                id="pokemonTypes">
-                                <!-- Pokémon types will be displayed here -->
-                                <span
-                                    class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">Type
-                                    1</span>
-                                <span
-                                    class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">Type
-                                    1</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="mb-3"></div>
 
-                    <div class="col-12 col-md-6" id="adittionalData">
-                        <div class="text-start pt-6 pt-md-6">
-                            <h4 class="mb-3 mb-md-4">Information</h4>
-                            <ul class="list-unstyled d-flex flex-column gap-3 gap-md-4">
-                                <li><strong>Weight:</strong> <span id="pokemonWeight">34.2 Kg</span></li>
-                                <li><strong>Height:</strong> <span id="pokemonHeight">2'04"</span></li>
-                                <li><strong>Species:</strong> <span id="pokemonSpecie">Seed</span></li>
-                                <li><strong>Egg Groups:</strong> <span id="eggGroups">Monster and Grass</span></li>
-                                <li><strong>Abilities:</strong> <span id="abilities">Overgrow, Chlorophyll</span></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="d-flex justify-content-center">
-                    <hr class="custom-hr">
-                </div>
-
-
-                <div class="row" id="evolutionChain">
+                <!-- Default message shown when no Pokémon is selected -->
+                <div class="row" id="defaultMessage">
                     <div class="col-12">
-
-                        <h4 class="text-center mb-4 mt-4">Evolution Chart</h4>
-                        <div class="d-flex flex-nowrap justify-content-center align-items-center overflow-auto gap-3" id="evolutionChainContainer">
-
-                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center ">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png"
-                                alt="Evolution Image" class="img-fluid" >
-                                <span class="mt-2 fw-bold text-center">Bulbasaur</span>
+                        <div class="text-center py-5 text-muted">
+                            <div class="mb-3 d-flex justify-content-center">
+                                <svg class="pokeball-spin" width="64" height="64" viewBox="0 0 64 64" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="32" cy="32" r="30" fill="#fff" stroke="#222" stroke-width="4" />
+                                    <path d="M2 32a30 30 0 0 1 60 0" fill="#ee1515" />
+                                    <circle cx="32" cy="32" r="10" fill="#fff" stroke="#222" stroke-width="4" />
+                                    <circle cx="32" cy="32" r="5" fill="#fff" stroke="#222" stroke-width="2" />
+                                </svg>
                             </div>
+                            <h4>Select a Pokémon to see the information</h4>
+                        </div>
+                    </div>
+                </div>
 
-                                <i class="bi bi-arrow-right text-danger fs-1 mx-5"></i>
-                            
-                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/2.png"
-                                alt="Evolution Image" class="img-fluid" >
-                                <span class="mt-2 fw-bold text-center">Ivisaur</span>
-                            </div>
+                <!-- Pokémon details, hidden by default -->
+                <div class="row d-none" id="pokemonDetails">
 
-                                <i class="bi bi-arrow-right text-danger fs-1 mx-5"></i> 
+                    <div class="col-6">
 
-                            <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center">
-                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png"
-                                alt="Evolution Image" class="img-fluid ">
-                                <span class="mt-2 fw-bold text-center">Venasaur</span>
-                            </div>
+                        <div class="align-items-center d-flex justify-content-center mb-3">
+                            <img id="pokemonImage" src="" alt="Pokemon Image" class="img-fluid w-25 w-md-25">
+                        </div>
+                        <div class="mb-3">
+                            <h2 id="pokemonName" class="text-center"></h2>
+                        </div>
+                        <div class="d-flex flex-wrap justify-content-center align-items-center gap-2" id="pokemonTypes">
+                            <!-- Pokémon types will be displayed here -->
                         </div>
 
-                        
+                    </div>
+
+                    <div class="col-6" id="adittionalData">
+                        <h4 class="mb-3 mb-md-4">Information</h4>
+                        <ul class="list-unstyled d-flex flex-column gap-3 small">
+                            <li><strong>Weight:</strong> <span id="pokemonWeight"></span></li>
+                            <li><strong>Height:</strong> <span id="pokemonHeight"></span></li>
+                            <li><strong>Species:</strong> <span id="pokemonSpecie"></span></li>
+                            <li><strong>Egg Groups:</strong> <span id="eggGroups"></span></li>
+                            <li><strong>Abilities:</strong> <span id="abilities"></span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <hr class="custom-hr d-none" id="connection-hr">
+
+                <!-- Evolution chain, hidden by default -->
+                <div class="row d-none" id="evolutionChain">
+                    <div class="col-12 overflow-auto">
+                        <h4 class="text-center mb-4 mt-2">Evolution Chart</h4>
+                        <div class="d-flex flex-nowrap justify-content-center align-items-center overflow-auto gap-3" id="evolutionChainContainer">
+                            <!-- Evolution chain will be rendered here -->
+                        </div>
                     </div>
                 </div>
 

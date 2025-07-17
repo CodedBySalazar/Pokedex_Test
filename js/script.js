@@ -4,19 +4,11 @@ let actualPokemonData = [];
 fetchPokedexData();
 
 async function fetchPokedexData(name = "kanto") {
-  try {
-    const response = await fetch(
-      `https://pokeapi.co/api/v2/pokedex/${name.toLowerCase()}`
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error fetching Pokedex data:", error);
-    return null;
-  }
+  const response = await fetch(
+    `https://pokeapi.co/api/v2/pokedex/${name.toLowerCase()}`
+  );
+  const data = await response.json();
+  return data;
 }
 
 fetchPokedexData().then((data) => {
@@ -34,18 +26,15 @@ fetchPokedexData().then((data) => {
   }
 });
 
+// Get all essential data of a single pokemon a store it in a local array
 async function fetchPokemonData(pokemonName) {
   try {
     let evolution_names = [];
 
-    const basicData = await fetch(
-      `https://pokeapi.co/api/v2/pokemon/${pokemonName}`
-    );
+    const basicData = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     const pokemon = await basicData.json();
 
-    const special_data = await fetch(
-      `https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`
-    );
+    const special_data = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}`);
     const specie = await special_data.json();
 
     evolution_names = await getEvolutionChain(specie);
@@ -70,47 +59,18 @@ async function fetchPokemonData(pokemonName) {
   }
 }
 
-async function getEvolutionChain(specie) {
-  let evolution_names = [];
-
-  if (specie.evolution_chain && specie.evolution_chain.url) {
-    try {
-      const evolutionChainResponse = await fetch(specie.evolution_chain.url);
-      const evolutionChain = await evolutionChainResponse.json();
-      evolution_names = extractEvolutionNames(evolutionChain.chain);
-    } catch (e) {
-      console.error(
-        `Error fetching evolution chain for ${pokemonName}:`,
-        e.message
-      );
-    }
-  }
-
-  return evolution_names;
-}
-
-function extractEvolutionNames(chain) {
-  const names = [];
-
-  function traverse(node) {
-    if (!node) return;
-    names.push(node.species.name);
-    if (node.evolves_to && node.evolves_to.length > 0) {
-      node.evolves_to.forEach((child) => traverse(child));
-    }
-  }
-  traverse(chain);
-  return names;
-}
-
+// List of all pokemon 
 function displayPokemonData(filteredPokemons = pokemonData) {
   const pokemonList = document.getElementById("pokemon-list");
   pokemonList.innerHTML = "";
 
   filteredPokemons.forEach((pokemon) => {
     const listItem = document.createElement("li");
-    listItem.className = "list-group-item list-group-item-action d-flex justify-content-between align-items-center";
-    listItem.onclick = () => { getSelectedPokemon(pokemon.name);};
+    listItem.className =
+      "list-group-item list-group-item-action d-flex justify-content-between align-items-center";
+    listItem.onclick = () => {
+      getSelectedPokemon(pokemon.name);
+    };
 
     listItem.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
@@ -130,6 +90,7 @@ function displayPokemonData(filteredPokemons = pokemonData) {
   });
 }
 
+// Save the pokemon selected between the list and show the data related with
 function getSelectedPokemon(pokemonName) {
   const selectedPokemon = pokemonData.find((p) => p.name === pokemonName);
 
@@ -139,7 +100,10 @@ function getSelectedPokemon(pokemonName) {
   }
 }
 
+// Show all data of selected pokemon
 function showActualPokemon() {
+  hideDefaultMessage();
+
   const $imageSrc = $("#pokemonImage");
   const $name = $("#pokemonName");
   const $typesContainer = $("#pokemonTypes");
@@ -149,30 +113,34 @@ function showActualPokemon() {
   const $eggGroups = $("#eggGroups");
   const $abilities = $("#abilities");
 
+  cleanContainers($typesContainer, $eggGroups, $abilities);
+
   $imageSrc.attr("src", actualPokemonData.principal_image);
   $name.text(convertFirstLetterUpperCase(actualPokemonData.name));
 
-  $typesContainer.empty();
   actualPokemonData.types.forEach((type) => {
     $typesContainer.append(
-      `<span class="badge-type text-dark py-2 px-4 px-md-5 rounded mx-2 mx-md-3 mb-2 mb-md-0">${convertFirstLetterUpperCase(
+      `<span class="badge-type text-dark py-1 px-5 rounded mx-4">${convertFirstLetterUpperCase(
         type
       )}</span>`
     );
   });
 
-  $weight.text(`${actualPokemonData.weight / 10} kg`);
-  $height.text(`${actualPokemonData.height / 10} m`);
+  $weight.text(`${(actualPokemonData.weight * 0.220462).toFixed(2)} lbs`);
+
+  const totalInches = actualPokemonData.height * 3.93701;
+  const feet = Math.floor(totalInches / 12);
+  const inches = Math.round(totalInches % 12);
+  $height.text(`${feet}'${inches}"`);
+
   $specie.text(convertFirstLetterUpperCase(actualPokemonData.species));
 
-  $eggGroups.empty();
   $eggGroups.text(
     actualPokemonData.egg_groups
       .map((group) => convertFirstLetterUpperCase(group))
       .join(" and ")
   );
-
-  $abilities.empty();
+  
   $abilities.text(
     actualPokemonData.abilities
       .map((ability) => convertFirstLetterUpperCase(ability))
@@ -182,6 +150,57 @@ function showActualPokemon() {
   addImagesEvolutions();
 }
 
+// Clean content before show data of the selected pokemon
+function cleanContainers($typesContainer, $eggGroups, $abilities) {
+  $typesContainer.empty();
+  $eggGroups.empty();
+  $abilities.empty();
+}
+
+// Show data of selected pokemon to replace the default message
+function hideDefaultMessage() {
+  $("#defaultMessage").addClass("d-none");
+  $("#pokemonDetails").removeClass("d-none");
+  $("#evolutionChain").removeClass("d-none");
+  $("#connection-hr").removeClass("d-none");
+}
+
+// Get data of API about all the evolutions of one pokemon
+async function getEvolutionChain(specie) {
+  let evolution_names = [];
+
+  if (specie.evolution_chain && specie.evolution_chain.url) {
+    try {
+      const evolutionChainResponse = await fetch(specie.evolution_chain.url);
+      const evolutionChain = await evolutionChainResponse.json();
+      evolution_names = extractEvolutionNames(evolutionChain.chain);
+    } catch (e) {
+      console.error(
+        `Error fetching evolution chain for ${pokemonName}:`,
+        e.message
+      );
+    }
+  }
+
+  return evolution_names;
+}
+
+// Get the names of the evolutions of every pokemon
+function extractEvolutionNames(chain) {
+  const names = [];
+
+  function traverse(node) {
+    if (!node) return;
+    names.push(node.species.name);
+    if (node.evolves_to && node.evolves_to.length > 0) {
+      node.evolves_to.forEach((child) => traverse(child));
+    }
+  }
+  traverse(chain);
+  return names;
+}
+
+// Search in the array of pokemons, the images that corresponds with name of evolutions of actual pokemon
 function addImagesEvolutions() {
   const evolutionsImages = [];
 
@@ -198,6 +217,7 @@ function addImagesEvolutions() {
   addEvolutionChainToview(evolutionsImages);
 }
 
+// Show the images and arrows of the selected pokemon in the view
 function addEvolutionChainToview(evolutionsImages) {
   const $evolutionsContainer = $("#evolutionChainContainer");
   $evolutionsContainer.empty();
@@ -207,7 +227,7 @@ function addEvolutionChainToview(evolutionsImages) {
 
     const $evolutionDiv = $(`
         <div class="col-4 col-sm-3 col-md-2 d-flex flex-column align-items-center">
-          <img src="${evolution.image}" alt="${evolution.name}" class="img-fluid">
+          <img src="${evolution.image}" alt="${evolution.name}" class="img-fluid ">
           <span class="mt-2 fw-bold text-center">${evolution.name}</span>
         </div>
       `);
@@ -221,6 +241,8 @@ function addEvolutionChainToview(evolutionsImages) {
     }
   });
 }
+
+// To search and filter in the list by what's is being introduced in the input of search
 $(".searchInput").on("input", function () {
   const searchPokemon = $(this).val().toLowerCase();
 
@@ -235,12 +257,14 @@ $(".searchInput").on("input", function () {
   }
 });
 
+// To mark the selected pokemon in the list
 $("#pokemon-list").on("click", "li", function (e) {
   $("#pokemon-list li").removeClass("active-pokemon");
 
   $(this).addClass("active-pokemon");
 });
 
+// Function to order pokemon by id before show in list
 function orderPokemons() {
   pokemonData.sort((a, b) => a.id - b.id);
 }
