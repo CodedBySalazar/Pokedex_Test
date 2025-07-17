@@ -24,7 +24,7 @@ It was developed as a part of **technical test** to apply for a **internship pos
 - **Next.js (just to prove functionality, it doesn´t have a key piece in project or direct integrations)**
 
 > [!NOTE]
-> All the libraries used in this project were downloaded and included locally, so it doesn't require an internet connection to work.
+> All the libraries used in this project were downloaded and included locally.
 
 ---
 ## 📦 Structure of files and folders
@@ -36,6 +36,7 @@ It was developed as a part of **technical test** to apply for a **internship pos
 |   |__ index.html      # Principal page
 ├── styles
 |   |__ styles.css      # Custom styles
+|   |__ pokeball-spin.css   
 ├── js 
 |   |__ script.js       # Application Logic
 │
