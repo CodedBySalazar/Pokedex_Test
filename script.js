@@ -34,10 +34,6 @@ fetchPokedexData().then((data) => {
   }
 });
 
-function orderPokemons() {
-  pokemonData.sort((a, b) => a.id - b.id);
-}
-
 async function fetchPokemonData(pokemonName) {
   try {
     let evolution_names = [];
@@ -59,7 +55,9 @@ async function fetchPokemonData(pokemonName) {
       name: pokemon.name,
       weight: pokemon.weight,
       height: pokemon.height,
-      species: specie.genera.find((g) => g.language.name === "en").genus.split(" ")[0],
+      species: specie.genera
+        .find((g) => g.language.name === "en")
+        .genus.split(" ")[0],
       abilities: pokemon.abilities.map((a) => a.ability.name),
       types: pokemon.types.map((t) => t.type.name),
       egg_groups: specie.egg_groups.map((g) => g.name),
@@ -111,15 +109,14 @@ function displayPokemonData(filteredPokemons = pokemonData) {
 
   filteredPokemons.forEach((pokemon) => {
     const listItem = document.createElement("li");
-    listItem.className =
-      "list-group-item list-group-item-action d-flex justify-content-between align-items-center";
-    listItem.onclick = () => {
-      getSelectedPokemon(pokemon.name);
-    };
+    listItem.className = "list-group-item list-group-item-action d-flex justify-content-between align-items-center";
+    listItem.onclick = () => { getSelectedPokemon(pokemon.name);};
 
     listItem.innerHTML = `
             <div class="d-flex justify-content-between align-items-center">
-                <img src="${pokemon.secondary_image}" alt="${pokemon.name}" class="img-fluid" style="max-width: 50px;">
+                <img src="${pokemon.secondary_image}" alt="${
+      pokemon.name
+    }" class="img-fluid" style="max-width: 50px;">
                 <span class="fw-bold ps-2 text-white">${pokemon.name}</span>
             </div>
             <div>
@@ -198,7 +195,7 @@ function addImagesEvolutions() {
     }
   });
 
-    addEvolutionChainToview(evolutionsImages);
+  addEvolutionChainToview(evolutionsImages);
 }
 
 function addEvolutionChainToview(evolutionsImages) {
@@ -224,13 +221,8 @@ function addEvolutionChainToview(evolutionsImages) {
     }
   });
 }
-
-function convertFirstLetterUpperCase(name) {
-  return name.charAt(0).toUpperCase() + name.slice(1);
-}
-
-document.getElementById("searchInput").addEventListener("input", (e) => {
-  const searchPokemon = e.target.value.toLowerCase();
+$(".searchInput").on("input", function () {
+  const searchPokemon = $(this).val().toLowerCase();
 
   const filteredPokemons = pokemonData.filter((pokemon) =>
     pokemon.name.toLowerCase().includes(searchPokemon)
@@ -243,8 +235,16 @@ document.getElementById("searchInput").addEventListener("input", (e) => {
   }
 });
 
-$("#pokemon-list").on("click", 'li', function (e) {
-    $("#pokemon-list li").removeClass("active-pokemon");
+$("#pokemon-list").on("click", "li", function (e) {
+  $("#pokemon-list li").removeClass("active-pokemon");
 
-    $(this).addClass("active-pokemon");
+  $(this).addClass("active-pokemon");
 });
+
+function orderPokemons() {
+  pokemonData.sort((a, b) => a.id - b.id);
+}
+
+function convertFirstLetterUpperCase(name) {
+  return name.charAt(0).toUpperCase() + name.slice(1);
+}

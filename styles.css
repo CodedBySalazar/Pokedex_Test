@@ -5,11 +5,6 @@ html, body {
     overflow: hidden;
 }
 
-.border-thick {
-  border-width: 20px !important;
-  border-color: #e44444 !important;
-}
-
 .container-fluid {
     display: flex;
     flex-direction: column;
@@ -25,6 +20,11 @@ html, body {
     flex-direction: column;
 }
 
+.border-thick {
+  border-width: 20px !important;
+  border-color: #e44444 !important;
+}
+
 .border-light {
     display: flex;
     flex-direction: column;
@@ -37,10 +37,13 @@ html, body {
     overflow-y: auto; 
 }
 
-.custom-hr {
-  width: 85% !important;              
-  border-top: 2px dashed #dc3545 !important; 
-  opacity: 0.75 !important;
+.list-group-item.active-pokemon {
+  background-color: #a13636;
+}
+
+.list-container,
+#pokemon-list {
+  background-color: transparent;
 }
 
 /* Chrome, Edge, Safari */
@@ -72,23 +75,37 @@ html, body {
   color: #00363a !important;
 }
 
+.custom-hr {
+  width: 85% !important;              
+  border-top: 2px dashed #dc3545 !important; 
+  opacity: 0.75 !important;
+}
+
 .badge-type {
     background-color: #f0b6b6;
+}
+
+.searchInput {
+  background: #9b3a3a;
+  border: 1px solid #cf6f6f;
+  color: white;
+}
+
+.searchInput::placeholder {
+  color: white;
+}
+
+.searchInput:focus {
+  background-color: #793333;
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+  outline: none;
 }
 
 .pt-6 {
     padding-top: 6rem !important;
 }
 
-.list-group-item.active-pokemon {
-  background-color: #a13636;
-}
-
 .bg-decorative {
   background: linear-gradient(to bottom, #fdd, #fff);
-}
-
-.list-container,
-#pokemon-list {
-  background-color: transparent;
 }
