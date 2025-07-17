@@ -1,9 +1,9 @@
 
 # Technical test | Pokemon API
 
-This project is an interactive **Pokedex** that consume data of the public API of Pokemon and shows de Pokemon related of the selected region, the used in this case was: **Kanto**.
+This project is an interactive **Pokedex** that consume data of the public API of Pokemon and shows the Pokemon related of the selected region, the used in this case was: **Kanto**.
 
-It was developed as a part of **technical test** to apply for a **internship position in Midware**. The purposse was to test technical skills in web development using tecnologies as HTML, CSS and JavaScript.
+It was developed as a part of **technical test** to apply for a **internship position in Midware**. The purpose was to test technical skills in web development using tecnologies as HTML, CSS and JavaScript.
 
 ---
 ## 🎯 Features
@@ -39,7 +39,7 @@ It was developed as a part of **technical test** to apply for a **internship pos
 ├── js 
 |   |__ script.js       # Application Logic
 │
-└── libs/              # Dependencias incluidas manualmente
+└── libs/              # Included dependencies
     ├── bootstrap/
     │   ├── css/
     │   ├── js/
