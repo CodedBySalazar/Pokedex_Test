@@ -130,7 +130,7 @@ function showActualPokemon() {
 
   actualPokemonData.types.forEach((type) => {
     $typesContainer.append(
-      `<span class="badge-type text-dark py-1 px-5 rounded mx-4">${convertFirstLetterUpperCase(
+      `<span class="badge-type text-dark px-5 rounded mx-1 ">${convertFirstLetterUpperCase(
         type
       )}</span>`
     );
@@ -278,11 +278,11 @@ $("#searchToggle").on("click", function () {
   const $searchInput = $("#searchInput");
   if (searchActive) {
     $searchInput.collapse("show");
-    $("#SearchIcon").removeClass("pulse-red");
+    $("#searchIcon").removeClass("pulse-red");
     searchActive = false;
   } else {
     $searchInput.collapse("hide");
-    $("#SearchIcon").addClass("pulse-red");
+    $("#searchIcon").addClass("pulse-red");
     searchActive = true;
   }
 
