@@ -13,7 +13,7 @@ async function fetchPokedexData(name = "kanto") {
 
 fetchPokedexData().then((data) => {
   if (data) {
-    const entries = data.pokemon_entries;
+    const entries = data.pokemon_entries.slice(0, 80);
     const promises = entries.map((entry) => {
       const pokemonName = entry.pokemon_species.name;
       return fetchPokemonData(pokemonName);
@@ -63,6 +63,15 @@ async function fetchPokemonData(pokemonName) {
 function displayPokemonData(filteredPokemons = pokemonData) {
   const pokemonList = document.getElementById("pokemon-list");
   pokemonList.innerHTML = "";
+
+if (filteredPokemons.length === 0) {
+  pokemonList.innerHTML += `
+    <li class="list-group-item text-center text-muted">
+      No Pokémon found.
+    </li>
+  `;
+  return;
+}
 
   filteredPokemons.forEach((pokemon) => {
     const listItem = document.createElement("li");
@@ -243,7 +252,7 @@ function addEvolutionChainToview(evolutionsImages) {
 }
 
 // To search and filter in the list by what's is being introduced in the input of search
-$(".searchInput").on("input", function () {
+$("#searchInput").on("input", function () {
   const searchPokemon = $(this).val().toLowerCase();
 
   const filteredPokemons = pokemonData.filter((pokemon) =>
@@ -252,9 +261,7 @@ $(".searchInput").on("input", function () {
 
   displayPokemonData(filteredPokemons);
 
-  if (searchPokemon === "") {
-    displayPokemonData(pokemonData);
-  }
+  
 });
 
 // To mark the selected pokemon in the list
@@ -262,6 +269,10 @@ $("#pokemon-list").on("click", "li", function (e) {
   $("#pokemon-list li").removeClass("active-pokemon");
 
   $(this).addClass("active-pokemon");
+});
+
+$("#searchToggle").on("click", function () {
+  $("#searchInput").collapse('toggle').focus();
 });
 
 // Function to order pokemon by id before show in list

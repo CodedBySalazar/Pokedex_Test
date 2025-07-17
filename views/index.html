@@ -40,12 +40,12 @@
 
 
                             <div class="input-group">
-                                <span class="input-group-text bg-white searchInput">
-                                    <i class="bi bi-search text-muted"></i>
+                                <span class="input-group-text bg-white" id="searchToggle">
+                                    <i class="bi bi-search  pulse-red text-muted"></i>
                                 </span>
 
-                                <input type="text" class="form-control searchInput"
-                                    placeholder="Enter Pokémon name..." />
+                                <input type="text" class="form-control collapse" id="searchInput"
+                                    placeholder="Enter Pokémon name..." aria-expanded="false" aria-controls="searchInput" />
                             </div>
 
                         </div>
