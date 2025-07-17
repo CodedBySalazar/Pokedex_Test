@@ -1,5 +1,6 @@
 let pokemonData = [];
 let actualPokemonData = [];
+let searchActive = true; // Variable to track the state of the search input
 
 fetchPokedexData();
 
@@ -66,7 +67,7 @@ function displayPokemonData(filteredPokemons = pokemonData) {
 
 if (filteredPokemons.length === 0) {
   pokemonList.innerHTML += `
-    <li class="list-group-item text-center text-muted">
+    <li class="list-group-item text-center bg-danger text-muted">
       No Pokémon found.
     </li>
   `;
@@ -271,8 +272,20 @@ $("#pokemon-list").on("click", "li", function (e) {
   $(this).addClass("active-pokemon");
 });
 
+// Toggle search input visibility and icon state
 $("#searchToggle").on("click", function () {
-  $("#searchInput").collapse('toggle').focus();
+
+  const $searchInput = $("#searchInput");
+  if (searchActive) {
+    $searchInput.collapse("show");
+    $("#SearchIcon").removeClass("pulse-red");
+    searchActive = false;
+  } else {
+    $searchInput.collapse("hide");
+    $("#SearchIcon").addClass("pulse-red");
+    searchActive = true;
+  }
+
 });
 
 // Function to order pokemon by id before show in list
