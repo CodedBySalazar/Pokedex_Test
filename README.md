@@ -8,7 +8,7 @@ It was developed as a part of **technical test** to apply for a **internship pos
 ---
 ## 🎯 Features
 
-- ✅ List and display pokemons of the Kanto region
+- ✅ List and display 80 pokemons of the Kanto region
 - ✅ Enter pokemon name or related letters to filter through the list and see related results 
 - ✅ Show a pokemon to see details as the sprite, types, egg groups, weight, height and species
 - ✅ Show the evolution chain of the pokemon selected
